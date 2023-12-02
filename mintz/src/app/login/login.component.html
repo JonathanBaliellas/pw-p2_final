@@ -1,0 +1,82 @@
+<section class="w3-container w3-center w3-margin">
+    <h2 class="w3-text-indigo">Identificação</h2>
+    <div id="container">
+        <!-- Possui cadastro -->
+        <div class="w3-half w3-border-right w3-padding">
+            <h3 class="w3-text-indigo">Já tenho cadastro</h3>
+            <div class="cadastro">
+                <input type="email" class="w3-input w3-border w3-round w3-margin" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="cliente.email">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Senha" [(ngModel)]="cliente.senha">
+            </div>
+            <p><button class="w3-button w3-round w3-indigo w3-hover-orange" (click)="logar(cliente)">Entrar</button></p>
+            <p><button class="w3-button w3-hover-none w3-text-indigo w3-hover-text-orange" onclick="document.getElementById('divEsqueciSenha').style.display='block'">Esqueci minha senha</button></p>
+        </div>
+    
+        <!-- Não possui cadastro -->
+        <div class="w3-half">
+            <h3 class="w3-text-indigo">Ainda não tenho cadastro</h3>
+            <button class="w3-button w3-round w3-indigo w3-hover-orange" onclick="document.getElementById('divCadastro').style.display='block'">Cadastrar</button>
+        </div>
+    </div>
+
+    <!-- Modal Cadastro -->
+    <div class="w3-modal" id="divCadastro">
+        <div class="w3-modal-content w3-card-4 w3-animate-top w3-round">
+            <header class="w3-indigo w3-container modal-header">
+                <!-- Fechar -->
+                <span onclick="document.getElementById('divCadastro').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <h3>Cadastrar</h3>
+            </header>
+            <div class="w3-container w3-padding cadastro">
+                <input type="text" class="w3-input w3-border w3-round w3-margin" placeholder="Nome" required pattern="[A-z\s]{6,100}" [(ngModel)]="cliente.nome">
+                <input type="email" class="w3-input w3-border w3-round w3-margin" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="cliente.email">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Senha" required [(ngModel)]="cliente.senha">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Confirmar senha" required>
+                <input type="number" class="w3-input w3-border w3-round w3-margin" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="cliente.cpf">
+                <div class="w3-padding">
+                    <button class="w3-button w3-indigo w3-round w3-hover-orange" (click)="cadastrar()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Modal Esqueci a Senha -->
+    <div class="w3-modal" id="divEsqueciSenha">
+        <div class="w3-modal-content w3-card-4 w3-animate-top w3-round">
+            <header class="w3-indigo w3-container modal-header">
+                <span onclick="document.getElementById('divEsqueciSenha').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <h3>Esqueci minha senha</h3>
+            </header>
+            <div class="w3-container w3-padding cadastro">
+                <p>Informe seu email para recuperar a senha</p>
+                <input type="email" class="w3-input w3-border w3-round w3-margin" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="clienteRecuperacao.email">
+                <div class="w3-padding">
+                    <button class="w3-button w3-indigo w3-round w3-hover-orange" (click)="recuperarSenha()">Recuperar senha</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Senha -->
+    <div class="w3-modal" id="divNovaSenha">
+        <div class="w3-modal-content w3-card-4 w3-animate-top w3-round">
+            <header class="w3-indigo w3-container modal-header">
+                <span onclick="document.getElementById('divNovaSenha').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <h3>Nova senha</h3>
+            </header>
+            <div class="w3-container w3-padding cadastro">
+                <p>Informe a sua nova senha</p>
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Senha" required [(ngModel)]="senha" (input)="verificarSenhas()" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
+
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Confirmar senha" required [(ngModel)]="confirmarSenha" (input)="verificarSenhas()" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
+
+                <p class="w3-margin" style="color: red;" *ngIf="senhasDiferentes">Senha não bate com a confirmação de senha</p>
+
+                <div class="w3-padding">
+                    <button class="w3-button w3-indigo w3-round w3-hover-orange" (click)="atualizarSenha()">Recuperar senha</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

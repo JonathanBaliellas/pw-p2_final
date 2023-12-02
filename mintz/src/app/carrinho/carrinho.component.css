@@ -1,0 +1,51 @@
+.button-remove{
+    height: 100%;
+}
+
+.w3-card{
+    border-radius: 10px;
+}
+
+.btn-comandos{
+    width: 150px;
+}
+
+.cart-title {
+    font-size: 44px;
+    font-weight: 700;
+    padding: 8px 0;
+}
+
+li {
+    display: flex;
+    overflow: hidden;
+    margin: 10px 0;
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+
+.cart-total {
+    font-size: 24px;
+    font-weight: 700;
+    padding: 8px 0;
+}
+
+input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+.icoVazio{
+    font-size: 6rem;
+}
+.btnVerMais{
+    width: 250px;
+}

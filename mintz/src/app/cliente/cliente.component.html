@@ -1,0 +1,80 @@
+<div class="w3-container w3-padding">
+    <!-- Formulário -->
+    <div class="w3-container w3-margin">
+        <!-- Dados -->
+        <div class="w3-half">
+            <h3 class="w3-text-indigo">Meus dados</h3>
+            <div class="dados w3-container">
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Nome</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="Nome" required pattern="[A-z\s]{6,100}" [(ngModel)]="cliente.nome">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Email</label>
+                    <input type="email" class="w3-input w3-border w3-round" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="cliente.email">
+
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Senha</label>
+                    <input type="password" class="w3-input w3-border w3-round" placeholder="Senha" [(ngModel)]="senha" (input)="verificarSenhas()" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Confirmar senha</label>
+                    <input type="password" class="w3-input w3-border w3-round" placeholder="Confirmar senha" [(ngModel)]="confirmarSenha" (input)="verificarSenhas()" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
+                </div>
+
+                <p class="w3-margin" style="color: red;" *ngIf="senhasDiferentes">Senha não bate com a confirmação de senha</p>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">CPF</label>
+                    <input type="number" class="w3-input w3-border w3-round" placeholder="CPF" disabled="true" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="cliente.cpf">
+                </div>
+            </div>
+        </div>
+        <!-- Endereço -->
+        <div class="w3-half">
+            <h3 class="w3-text-indigo">Meu endereço</h3>
+            <div class="dados w3-container">
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Logradouro</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="Logradouro" [(ngModel)]="cliente.logradouro">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Complemento</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="Complemento" [(ngModel)]="cliente.complemento">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Bairro</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="Bairro" [(ngModel)]="cliente.bairro">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">Cidade</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="Cidade" [(ngModel)]="cliente.cidade">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">UF</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="UF" [(ngModel)]="cliente.uf">
+                </div>
+
+                <div class="w3-margin">
+                    <label class="w3-text-indigo">CEP</label>
+                    <input type="text" class="w3-input w3-border w3-round" placeholder="CEP" [(ngModel)]="cliente.cep">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Botões -->
+    <div class="w3-padding w3-center">
+        <button class="w3-button w3-indigo w3-round w3-hover-orange w3-margin" (click)="atualizar()">Atualizar</button>
+        <button class="w3-button w3-round w3-red w3-hover-orange w3-margin" (click)="excluir()">Excluir conta</button>
+    </div>
+</div>

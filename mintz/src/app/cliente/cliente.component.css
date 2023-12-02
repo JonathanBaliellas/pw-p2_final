@@ -1,0 +1,13 @@
+.dados{
+    padding-right: 3rem!important;
+    width: 750px;
+}
+
+.modal-header{
+    padding-top: 10px;
+}
+
+.senhas-diferentes{
+    border: 1px solid red!important;
+    color: red!important;
+}

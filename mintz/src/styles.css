@@ -1,0 +1,21 @@
+p{
+    margin-bottom: 8px;
+}
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+h1{
+    font-size: 2.5rem!important;
+}
+h2{
+    font-size: 2rem!important;
+}
+h3{
+    font-size: 1.5rem!important;
+    font-weight: bold!important;
+}
+.w3-button{
+    transition: .2s all;
+}

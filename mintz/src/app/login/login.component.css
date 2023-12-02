@@ -1,0 +1,25 @@
+.cadastro{
+    padding-right: 3rem!important;
+}
+
+.modal-header{
+    padding-top: 10px;
+}
+
+#container{
+    margin-top: 5rem;
+}
+
+@media only screen and (max-width: 600px){
+    div{
+        border-style: none!important;
+    }
+
+    #container{
+        margin-top: 2rem;
+    }
+}
+.senhas-diferentes{
+    border: 1px solid red!important;
+    color: red!important;
+}

@@ -1,0 +1,19 @@
+#compra{
+    height: 300px;
+}
+.disponibilidade{
+    font-size: x-small;
+}
+.espacamento{
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+.espacamento-top{
+    margin-top: 32px;
+}
+img{
+    height: 300px;
+}
+#descricao{
+    margin-top: 350px;
+}

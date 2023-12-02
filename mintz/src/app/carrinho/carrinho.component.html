@@ -1,0 +1,42 @@
+<h2 class="cart-title w3-text-indigo w3-margin">Carrinho</h2>
+<section class="w3-margin" *ngIf="itensCarrinho.length > 0; else carrinhoVazio">
+    <!-- Lista de itens -->
+    <ul>
+        <li class="w3-card" *ngFor="let itemCarrinho of itensCarrinho">
+            <img [src]="itemCarrinho.imagem" class="w3-bar-item">
+            <p class="w3-bar-item">{{itemCarrinho.descricao}}</p>
+            <p class="w3-bar-item">{{itemCarrinho.preco | currency:'BRL' : 'R$ '}}</p>
+            <label class="w3-bar-item">
+                Quantidade: 
+                <input type="number" class="input" id="" min="1" max="99" [(ngModel)]="itemCarrinho.quantidade" (change)="calcularTotal()">
+            </label>
+            <button class="w3-button w3-indigo w3-hover-orange w3-bar-item w3-right button-remove" (click)="removerItem(itemCarrinho.id)"><i class="fa-solid fa-xmark"></i></button>
+        </li>
+    </ul>
+
+    <!-- Total e Comandos -->
+    <section class="w3-margin">
+        <h2 class="cart-total w3-text-indigo">Total: {{total | currency:'BRL' : 'R$ ' : '.2-2'}}</h2>
+        
+        <!-- Botões -->
+        <div class="w3-container w3-center">
+            <div class="w3-half">
+                <button class="w3-button w3-indigo w3-hover-orange w3-round-large btn-comandos w3-margin" (click)="comprar()">Finalizar a compra</button>
+
+            </div>
+            <div class="w3-half">
+                <button class="w3-button w3-indigo w3-hover-orange w3-round-large btn-comandos w3-margin" (click)="limparCarrinho()">Limpar carrinho</button>
+
+            </div>
+        </div>
+    </section>
+</section>
+
+<ng-template #carrinhoVazio>
+    <section class="w3-margin w3-padding-64 w3-center w3-text-indigo">
+        <h2><i class="fa-solid fa-cart-shopping icoVazio"></i></h2>
+        <h3>Seu carrinho está vazio</h3>
+        <p>Que tal navegar pelas ofertas e achar algo especial para você?</p>
+        <button class="w3-button w3-indigo w3-hover-orange w3-round-large w3-xlarge w3-margin w3-padding-16 btnVerMais" routerLink="../produtos">Ver produtos</button>
+    </section>
+</ng-template>

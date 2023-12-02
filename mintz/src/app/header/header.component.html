@@ -1,0 +1,32 @@
+<header class="w3-container w3-text-indigo">
+    <!-- LOGO -->
+    <a routerLink="">
+        <h1 class="w3-half w3-text-orange logo">🏵️<strong>Mintz<span class="w3-text-indigo"> Informática</span></strong></h1>
+    </a>
+
+    <div class="w3-half w3-container">
+        <!-- MENU -->
+        <nav class="w3-bar">
+            <div class="w3-right">
+                <a class="w3-button w3-bar-item" routerLink="produtos">Produtos</a>
+                <a class="w3-button w3-bar-item" routerLink="carrinho"><i class="fa-solid fa-cart-shopping"></i><span class="quant-carrinho">{{carrinhoService.obterCarrinho().length}}</span></a>
+                <div class="w3-dropdown-hover">
+                    <a class="w3-button" routerLink="login"><i class="fa-regular fa-user"></i></a>
+                    <div class="w3-dropdown-content w3-bar-block w3-card-4" *ngIf="clienteLogado != null">
+                        <a class="w3-bar-item w3-button" routerLink="minha-conta">Minha conta</a>
+
+                        <a class="w3-bar-item w3-button" routerLink="pedidos">Meus pedidos</a>
+
+                        <a class="w3-bar-item w3-button" (click)="logoff()">Sair</a>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- BARRA DE BUSCA -->
+        <app-barra-pesquisa></app-barra-pesquisa>
+        
+
+    </div>
+</header>
