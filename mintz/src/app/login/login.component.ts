@@ -13,6 +13,7 @@ export class LoginComponent {
   msg: string = "";
   cliente: Cliente = new Cliente();
   clienteRecuperacao: Cliente = new Cliente();
+  clienteNovo: Cliente = new Cliente();
   senha: string = "";
   confirmarSenha: string = "";
   senhasDiferentes: boolean = false;
@@ -32,16 +33,27 @@ export class LoginComponent {
   }
     
   cadastrar(): void{
-    try {
-      this.clienteService.inserir(this.cliente);
-      this.msg = "Cadastro efetuado com sucesso"
-    } catch (error) {
-      this.msg = "Ops, parece que algo deu errado";
+    if (this.clienteNovo.senha.length > 0) {
+      if (!this.senhasDiferentes) {
+        try {
+          this.clienteService.inserir(this.clienteNovo);
+          this.msg = "Cadastro efetuado com sucesso"
+          window.alert(this.msg);
+          this.logar(this.clienteNovo);
+        } catch (error) {
+          this.msg = "Ops, parece que algo deu errado";
+          this.notificacaoService.notificar(this.msg);
+        }
+        (document.getElementById('divCadastro') as HTMLElement).style.display = 'none';
+
+      } else {
+        this.notificacaoService.notificar("A senha e a confirmação não batem");
+        return;
+      }
+    } else {
+      this.notificacaoService.notificar("A senha não pode ser vazia");
+      return;
     }
-    (document.getElementById('divCadastro') as HTMLElement).style.display = 'none';
-    window.alert(this.msg);
-
-
   }
 
   recuperarSenha(): void{
@@ -82,12 +94,15 @@ export class LoginComponent {
 
   atualizarSenha(): void{
     if (this.senha.length > 0) {
-      if (this.senha == this.confirmarSenha) {
+      if (!this.senhasDiferentes) {
         this.clienteRecuperacao.senha = this.senha;
       } else {
         this.notificacaoService.notificar("A senha e a confirmação não batem");
         return;
       }
+    } else {
+      this.notificacaoService.notificar("A senha não pode ser vazia");
+      return;
     }
     try {
         this.clienteService.atualizar(this.clienteRecuperacao);
@@ -97,17 +112,20 @@ export class LoginComponent {
         this.notificacaoService.notificar("Senha recuperada com sucesso! Bem-vindo, " + this.clienteRecuperacao.nome);
         window.location.href = "./produtos";
         */
-        setTimeout(() => {
-          console.log('Aguarda um pouco');
-        }, 2000);
-       this.logar(this.clienteRecuperacao);
+        
+        const aguardar = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+        aguardar(1000).then(() => {
+          this.logar(this.clienteRecuperacao);
+        });
+
+        alert("Senha recuperada com sucesso");
     } catch (error) {
       this.notificacaoService.notificar("Ops, parece que algo deu errado");
     }
   }
 
-  verificarSenhas(): void{
-    this.senhasDiferentes = this.senha !== this.confirmarSenha;
+  verificarSenhas(senha: string, confirmarSenha: string): void{
+    this.senhasDiferentes = senha !== confirmarSenha;
   }
 
   logar(login: Cliente): void{

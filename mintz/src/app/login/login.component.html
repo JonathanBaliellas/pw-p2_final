@@ -28,11 +28,51 @@
                 <h3>Cadastrar</h3>
             </header>
             <div class="w3-container w3-padding cadastro">
-                <input type="text" class="w3-input w3-border w3-round w3-margin" placeholder="Nome" required pattern="[A-z\s]{6,100}" [(ngModel)]="cliente.nome">
-                <input type="email" class="w3-input w3-border w3-round w3-margin" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="cliente.email">
-                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Senha" required [(ngModel)]="cliente.senha">
-                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Confirmar senha" required>
-                <input type="number" class="w3-input w3-border w3-round w3-margin" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="cliente.cpf">
+                <input type="text" class="w3-input w3-border w3-round w3-margin" placeholder="Nome" required pattern="[A-z\s]{6,100}" [(ngModel)]="clienteNovo.nome">
+                <input type="number" class="w3-input w3-border w3-round w3-margin" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="clienteNovo.cpf">
+                <input type="email" class="w3-input w3-border w3-round w3-margin" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="clienteNovo.email">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" [ngClass]="{'senhas-diferentes': senhasDiferentes}" placeholder="Senha" [(ngModel)]="clienteNovo.senha" (input)="verificarSenhas(clienteNovo.senha, confirmarSenha)">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" [ngClass]="{'senhas-diferentes': senhasDiferentes}" placeholder="Confirmar senha" [(ngModel)]="confirmarSenha" (input)="verificarSenhas(clienteNovo.senha, confirmarSenha)">
+                <p class="w3-margin" style="color: red;" *ngIf="senhasDiferentes">Senha não bate com a confirmação de senha</p>
+
+                <!-- Endereço -->
+                <section class="w3-margin-left endereco">
+                    <div class="w3-third">
+                        <div class="w3-margin-right">
+                            <input type="text" class="w3-input w3-border w3-round" placeholder="Logradouro" [(ngModel)]="clienteNovo.logradouro">
+                        </div>
+                    </div>
+                    <div class="w3-third">
+                        <div class="w3-margin-left w3-margin-right">
+                            <input type="text" class="w3-input w3-border w3-round" placeholder="Complemento" [(ngModel)]="clienteNovo.complemento">
+    
+                        </div>
+                    </div>
+                    <div class="w3-third">
+                        <div class="w3-margin-left">
+                            <input type="text" class="w3-input w3-border w3-round w3-right" placeholder="Bairro" [(ngModel)]="clienteNovo.bairro">
+                        </div>
+                    </div>
+                    <div class="w3-third">
+                        <div class="w3-margin-right">
+                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" placeholder="Cidade" [(ngModel)]="clienteNovo.cidade">
+                        </div>
+                    </div>
+                    <div class="w3-third">
+                        <div class="w3-margin-left w3-margin-right">
+                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" placeholder="UF" [(ngModel)]="clienteNovo.uf">
+
+                        </div>
+                    </div>
+                    <div class="w3-third w3-margin-bottom">
+                        <div class="w3-margin-left">
+                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" placeholder="CEP" [(ngModel)]="clienteNovo.cep">
+
+                        </div>
+                    </div>
+
+                </section>
+
                 <div class="w3-padding">
                     <button class="w3-button w3-indigo w3-round w3-hover-orange" (click)="cadastrar()">Cadastrar</button>
                 </div>
@@ -67,9 +107,9 @@
             </header>
             <div class="w3-container w3-padding cadastro">
                 <p>Informe a sua nova senha</p>
-                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Senha" required [(ngModel)]="senha" (input)="verificarSenhas()" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Senha" required [(ngModel)]="senha" (input)="verificarSenhas(senha, confirmarSenha)" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
 
-                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Confirmar senha" required [(ngModel)]="confirmarSenha" (input)="verificarSenhas()" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
+                <input type="password" class="w3-input w3-border w3-round w3-margin" placeholder="Confirmar senha" required [(ngModel)]="confirmarSenha" (input)="verificarSenhas(senha, confirmarSenha)" [ngClass]="{'senhas-diferentes': senhasDiferentes}">
 
                 <p class="w3-margin" style="color: red;" *ngIf="senhasDiferentes">Senha não bate com a confirmação de senha</p>
 

@@ -75,6 +75,25 @@
     <!-- Botões -->
     <div class="w3-padding w3-center">
         <button class="w3-button w3-indigo w3-round w3-hover-orange w3-margin" (click)="atualizar()">Atualizar</button>
-        <button class="w3-button w3-round w3-red w3-hover-orange w3-margin" (click)="excluir()">Excluir conta</button>
+        <button class="w3-button w3-round w3-red w3-hover-orange w3-margin" onclick="document.getElementById('divModalExcluir').style.display='block'">Excluir conta</button>
+    </div>
+
+</div>
+
+<!-- Modal Confirmar Exclusão -->
+<div class="w3-modal w3-center" id="divModalExcluir">
+    <div class="w3-modal-content w3-card-4 w3-animate-top w3-round">
+        <header class="w3-indigo w3-container modal-header">
+            <span onclick="document.getElementById('divModalExcluir').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h3>Excluir conta</h3>
+        </header>
+        <div class="w3-container w3-padding cadastro">
+            <p>Estamos tristes porque quer nos deixar...</p>
+            
+            <div class="w3-padding">
+                <button class="w3-button w3-indigo w3-round w3-hover-orange w3-margin" onclick="document.getElementById('divModalExcluir').style.display='none'">Quero ficar</button>
+                <button class="w3-button w3-red w3-round w3-hover-orange w3-margin" (click)="excluir()">Excluir conta</button>
+            </div>
+        </div>
     </div>
 </div>

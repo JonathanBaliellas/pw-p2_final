@@ -81,7 +81,7 @@ export class ClienteComponent {
     try {
       this.clienteService.excluir(this.cliente.id);
       this.msg = "Conta excluída com sucesso";
-      this.notificacaoService.notificar(this.msg);
+      window.alert(this.msg);
       localStorage.clear();
       window.location.href = "./produtos";
     } catch (error) {
