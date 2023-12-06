@@ -31,6 +31,12 @@ img {
     display: block;
 }
 
+.imagem{
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+
 .cart-total {
     font-size: 24px;
     font-weight: 700;
@@ -58,4 +64,8 @@ input {
 
 .sec-pedido{
     min-height: 54vh;
+}
+
+.modal-header{
+    padding-top: 10px;
 }

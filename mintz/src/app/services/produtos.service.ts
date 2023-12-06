@@ -8,15 +8,7 @@ import { Produtos } from '../produtos/produtos.model';
   providedIn: 'root'
 })
 export class ProdutosService {
-  /* Versão antiga P1
-  produtos: IProduto[] = produtos;
-  constructor() { }
-
-  getAll(){return this.produtos}
-  getOne(produtoId: number){return this.produtos.find(produto => produto.id == produtoId)}
-  */
-
-  //VERSÃO P2
+  
   constructor(private http: HttpClient){}
 
   public consultar(id: number): Observable<Produtos>{

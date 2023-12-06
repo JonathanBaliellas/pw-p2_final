@@ -4,6 +4,11 @@ import { PedidoService } from '../services/pedido.service';
 import { Cliente } from '../cliente/cliente.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs';
+import { PedidoProduto } from './pedido-produto.model';
+import { PedidoProdutoService } from '../services/pedido-produto.service';
+import { IProdutoCarrinho } from '../produtos';
+import { ProdutosService } from '../services/produtos.service';
+import { Produtos } from '../produtos/produtos.model';
 
 @Component({
   selector: 'app-pedidos',
@@ -12,44 +17,121 @@ import { map, switchMap } from 'rxjs';
 })
 export class PedidosComponent {
   listaPedidos: Pedido[] = [];
+  listaPedidoProdutos: PedidoProduto[] = [];
+  listaProdutos: IProdutoCarrinho[] = []
   cliente: Cliente = new Cliente();
+  tbody = document.getElementById('tbody');
 
   constructor(
     public pedidoService: PedidoService,
+    public pedidoProdutoService: PedidoProdutoService,
+    public produtoService: ProdutosService,
     private route: ActivatedRoute
   ){}
 
   ngOnInit(){
     const clienteLogado = localStorage.getItem("cliente");
+    this.tbody = document.getElementById('tbody');
     if (clienteLogado != null) {
       this.cliente = JSON.parse(clienteLogado);
-
 
       this.route.queryParams.pipe(
         // switchMap troca para um novo observable
         switchMap(() => this.pedidoService.listar(this.cliente.id))
-        /*
-        ,
-        map((pedidos: Pedido[]) => {
-          // Pega a descrição digitada e converte para letras minúsculas
-          const descricao = this.route.snapshot.queryParams["descricao"]?.toLowerCase();
-    
-          // Verifica se o produto digitado está presente na lista de produtos
-          if (descricao) {
-            return pedidos.filter(produto => produto.descricao.toLowerCase().includes(descricao));
-          }
-    
-          // Se não estiver no filtro, retorna toda a lista de produtos
-          return pedidos;
-        })
-        */
       ).subscribe(pedidos => {
         // O resultado final é atribuído a this.produtos
         this.listaPedidos = pedidos;
       });
-
-
-      //this.listaPedidos = this.pedidoService.listar(this.cliente.id);
     }
   }
+
+  mostrarDetalhesPedido(pedido_id: number){
+    //Limpa as variáveis
+    this.listaPedidoProdutos = [];
+    this.listaProdutos = [];
+    let children = this.tbody?.children.length;
+    if (children == null) children = 0;
+    for (let i = 0; i < children; i++){
+      this.tbody?.removeChild(this.tbody.children[i]);
+    }
+
+    //Consulta a lista de produtos do pedido
+    try {
+      this.route.queryParams.pipe(
+        switchMap(() => this.pedidoProdutoService.listar(pedido_id))
+      ).subscribe(listaProdutos => {
+          this.listaPedidoProdutos = listaProdutos;
+          console.log(listaProdutos);
+          this.consultarProduto();
+        }
+      )
+    } catch (error) {
+      
+    }
+  }
+
+  consultarProduto(){
+    this.listaPedidoProdutos.forEach(element => {
+      try {
+        //Recupera informações do produto
+        // let produto: Produtos = new Produtos;
+        this.produtoService.consultar(element.produto_id).subscribe(
+          (resposta: Produtos) => {
+            // produto = resposta;
+            this.adicionarProduto(resposta, element);
+            
+          }
+          );
+          
+          
+      } catch (error) {
+        
+      }
+    });
+
+    this.mostrarModal();
+  }
+
+  adicionarProduto(produto: Produtos, element: PedidoProduto){
+    //Adiciona a quantidade no pedido
+    const pedidoProduto: IProdutoCarrinho = {
+      ...produto,
+      quantidade: element.quant
+    }
+      
+    //Insere o produto na lista
+    this.listaProdutos.push(pedidoProduto);
+
+    const tr = document.createElement('tr');
+    for (let i = 0; i < 4; i++) {
+      const td = document.createElement('td');
+      tr.appendChild(td);
+      switch (i) {
+        case 0:
+          const img = document.createElement('img');
+          img.width = 100;
+          img.src = pedidoProduto.imagem;
+          td.appendChild(img);
+          break;
+
+        case 1:
+          td.innerHTML = pedidoProduto.descricao;
+          break;
+
+        case 2:
+          td.innerHTML = pedidoProduto.quantidade.toString();
+          break;
+
+        case 3:
+          td.innerHTML = pedidoProduto.preco.toString();
+      }
+    }
+    this.tbody?.append(tr);
+  }
+
+  mostrarModal(){
+    //Mostra o modal
+    (document.getElementById('divDetalhesPedido') as HTMLElement).style.display='block';
+  }
 }
+    

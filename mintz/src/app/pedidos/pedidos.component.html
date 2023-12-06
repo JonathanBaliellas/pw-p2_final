@@ -17,11 +17,41 @@
                 <td>{{pedido.valorTotal | currency:'BRL' : 'R$ '}}</td>
                 <td>{{pedido.valorFrete | currency:'BRL' : 'R$ '}}</td>
                 <td>{{pedido.status}}</td>
-                <td><i class="fa-solid fa-arrow-up-right-from-square"></i></td>
+                <td><button class="w3-button" (click)="mostrarDetalhesPedido(pedido.id)"><i class="fa-solid fa-arrow-up-right-from-square"></i></button></td>
             </tr>
         </tbody>
     </table>
 </section>
+
+<!-- Modal Detalhes do Pedido -->
+<div class="w3-modal" id="divDetalhesPedido">
+    <div class="w3-modal-content w3-card-4 w3-animate-top w3-round">
+        <header class="w3-indigo w3-container modal-header w3-center">
+            <span onclick="document.getElementById('divDetalhesPedido').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h3>Detalhes do Pedido</h3>
+        </header>
+        <div class="w3-container w3-padding">
+            <table class="w3-table-all">
+                <thead>
+                    <tr class="w3-indigo">
+                        <th>Imagem</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <!-- <tr *ngFor="let produto of listaProdutos">
+                        <td><img [src]="produto.imagem"></td>
+                        <td>{{produto.descricao}}</td>
+                        <td>{{produto.quantidade}}</td>
+                        <td>{{produto.preco}}</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 <ng-template #pedidosVazio>
     <section class="w3-margin w3-padding-64 w3-center w3-text-indigo sec-pedido">

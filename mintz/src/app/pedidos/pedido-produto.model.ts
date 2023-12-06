@@ -3,7 +3,7 @@ export class PedidoProduto {
     produto_id: number = 0
     pedido_id: number = 0;
     quant: number = 0;
-    valor: number = 0;
+    preco: number = 0;
 
     constructor(pedidoProduto?: PedidoProduto){
         if (pedidoProduto != undefined) {
@@ -11,7 +11,7 @@ export class PedidoProduto {
             this.pedido_id = pedidoProduto.pedido_id;
             this.produto_id = pedidoProduto.produto_id;
             this.quant = pedidoProduto.quant;
-            this.valor = pedidoProduto.valor;
+            this.preco = pedidoProduto.preco;
         }
     }
 }

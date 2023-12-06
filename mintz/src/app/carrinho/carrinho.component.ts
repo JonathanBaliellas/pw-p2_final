@@ -58,13 +58,19 @@ export class CarrinhoComponent {
       pedido.valorTotal = this.total;
       
       //Envia o pedido
-      this.pedidoService.inserir(pedido);
-      // this.pedidoService.inserir(pedido, this.itensCarrinho);
-
-      //Finaliza a compra
-      alert('Obrigado pela compra, ' + this.cliente.nome + '!');
-      this.carrinhoService.limparCarrinho();
-      this.router.navigate(['produtos']);
+      try {
+        // this.pedidoService.inserir(pedido);
+        this.pedidoService.inserir(pedido, this.itensCarrinho);
+  
+        //Finaliza a compra
+        alert('Obrigado pela compra, ' + this.cliente.nome + '!');
+        this.carrinhoService.limparCarrinho();
+        this.router.navigate(['produtos']);
+        
+      } catch (error) {
+        alert("Ops! Parece que algo deu errado\n")
+        console.log("Erro ao enviar pedido: " + error)
+      }
     } else {
       alert('Você não está logado');
     }

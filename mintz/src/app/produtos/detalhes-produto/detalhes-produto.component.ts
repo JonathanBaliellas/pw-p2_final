@@ -25,14 +25,6 @@ export class DetalhesProdutoComponent {
   ){}
 
   ngOnInit(): void{
-    /*VERSÃO P1
-    const routeParams = this.route.snapshot.paramMap;
-    const produtoId = Number(routeParams.get("id"));
-    this.produto =  this.produtosService.consultar(produtoId);
-    console.log(produtoId);
-    console.log(this.produto)
-    */
-   //VERSÃO P2
    let produtoId = this.route.snapshot.paramMap.get("id");
    if (produtoId != null) {
       this.produto.id = Number(produtoId);
