@@ -27,54 +27,112 @@
                 <span onclick="document.getElementById('divCadastro').style.display='none'" class="w3-button w3-display-topright">&times;</span>
                 <h3>Cadastrar</h3>
             </header>
-            <div class="w3-container w3-padding cadastro">
-                <input type="text" class="w3-input w3-border w3-round w3-margin" placeholder="Nome" required pattern="[A-z\s]{6,100}" [(ngModel)]="clienteNovo.nome">
-                <input type="number" class="w3-input w3-border w3-round w3-margin" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="clienteNovo.cpf">
-                <input type="email" class="w3-input w3-border w3-round w3-margin" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="clienteNovo.email">
-                <input type="password" class="w3-input w3-border w3-round w3-margin" [ngClass]="{'senhas-diferentes': senhasDiferentes}" placeholder="Senha" [(ngModel)]="clienteNovo.senha" (input)="verificarSenhas(clienteNovo.senha, confirmarSenha)">
-                <input type="password" class="w3-input w3-border w3-round w3-margin" [ngClass]="{'senhas-diferentes': senhasDiferentes}" placeholder="Confirmar senha" [(ngModel)]="confirmarSenha" (input)="verificarSenhas(clienteNovo.senha, confirmarSenha)">
+            <div class="w3-container w3-padding cadastro" [formGroup]="formCadastro" >
+                <input type="text" class="w3-input w3-border w3-round w3-margin" 
+                    placeholder="Nome" 
+                    [(ngModel)]="clienteNovo.nome"
+                    formControlName="nome"
+                    [class.invalido]="formCadastro.controls['nome'].invalid && formCadastro.controls['nome'].touched"
+                >
+                <input type="number" class="w3-input w3-border w3-round w3-margin" 
+                    placeholder="CPF" 
+                    [(ngModel)]="clienteNovo.cpf"
+                    formControlName="cpf"
+                    [class.invalido]="formCadastro.controls['cpf'].invalid && formCadastro.controls['cpf'].touched"
+                >
+                <input type="email" class="w3-input w3-border w3-round w3-margin" 
+                    placeholder="Email" 
+                    [(ngModel)]="clienteNovo.email"
+                    formControlName="email"
+                    [class.invalido]="formCadastro.controls['email'].invalid && formCadastro.controls['email'].touched"
+                >
+                <input type="password" class="w3-input w3-border w3-round w3-margin" 
+                    placeholder="Senha" 
+                    [(ngModel)]="clienteNovo.senha" 
+                    [ngClass]="{'senhas-diferentes': senhasDiferentes}" 
+                    (input)="verificarSenhas(clienteNovo.senha, confirmarSenha)"
+                    formControlName="senha"
+                    [class.invalido]="formCadastro.controls['senha'].invalid && formCadastro.controls['senha'].touched"
+                >
+                <input type="password" class="w3-input w3-border w3-round w3-margin" 
+                    placeholder="Confirmar senha" 
+                    [(ngModel)]="confirmarSenha" 
+                    [ngClass]="{'senhas-diferentes': senhasDiferentes}" 
+                    (input)="verificarSenhas(clienteNovo.senha, confirmarSenha)"
+                    formControlName="senha"
+                    [class.invalido]="formCadastro.controls['senha'].invalid && formCadastro.controls['senha'].touched"
+                >
                 <p class="w3-margin" style="color: red;" *ngIf="senhasDiferentes">Senha não bate com a confirmação de senha</p>
 
                 <!-- Endereço -->
                 <section class="w3-margin-left endereco">
                     <div class="w3-third">
                         <div class="w3-margin-right">
-                            <input type="text" class="w3-input w3-border w3-round" placeholder="Logradouro" [(ngModel)]="clienteNovo.logradouro">
+                            <input type="text" class="w3-input w3-border w3-round" 
+                                placeholder="Logradouro" 
+                                [(ngModel)]="clienteNovo.logradouro"
+                                formControlName="logradouro"
+                                [class.invalido]="formCadastro.controls['logradouro'].invalid && formCadastro.controls['logradouro'].touched"
+                            >
                         </div>
                     </div>
                     <div class="w3-third">
                         <div class="w3-margin-left w3-margin-right">
-                            <input type="text" class="w3-input w3-border w3-round" placeholder="Complemento" [(ngModel)]="clienteNovo.complemento">
+                            <input type="text" class="w3-input w3-border w3-round" 
+                                placeholder="Complemento" 
+                                [(ngModel)]="clienteNovo.complemento"
+                            >
     
                         </div>
                     </div>
                     <div class="w3-third">
                         <div class="w3-margin-left">
-                            <input type="text" class="w3-input w3-border w3-round w3-right" placeholder="Bairro" [(ngModel)]="clienteNovo.bairro">
+                            <input type="text" class="w3-input w3-border w3-round w3-right" 
+                                placeholder="Bairro" 
+                                [(ngModel)]="clienteNovo.bairro"
+                                formControlName="bairro"
+                                [class.invalido]="formCadastro.controls['bairro'].invalid && formCadastro.controls['bairro'].touched"
+                            >
                         </div>
                     </div>
                     <div class="w3-third">
                         <div class="w3-margin-right">
-                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" placeholder="Cidade" [(ngModel)]="clienteNovo.cidade">
+                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" 
+                                placeholder="Cidade" 
+                                [(ngModel)]="clienteNovo.cidade"
+                                formControlName="cidade"
+                                [class.invalido]="formCadastro.controls['cidade'].invalid && formCadastro.controls['cidade'].touched"
+                            >
                         </div>
                     </div>
                     <div class="w3-third">
                         <div class="w3-margin-left w3-margin-right">
-                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" placeholder="UF" [(ngModel)]="clienteNovo.uf">
+                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" 
+                                placeholder="UF" 
+                                [(ngModel)]="clienteNovo.uf"
+                                formControlName="uf"
+                                [class.invalido]="formCadastro.controls['uf'].invalid && formCadastro.controls['uf'].touched"
+                            >
 
                         </div>
                     </div>
                     <div class="w3-third w3-margin-bottom">
                         <div class="w3-margin-left">
-                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" placeholder="CEP" [(ngModel)]="clienteNovo.cep">
+                            <input type="text" class="w3-input w3-border w3-round w3-margin-top" 
+                                placeholder="CEP" 
+                                [(ngModel)]="clienteNovo.cep"
+                                formControlName="cep"
+                                [class.invalido]="formCadastro.controls['cep'].invalid && formCadastro.controls['cep'].touched"
+                            >
 
                         </div>
                     </div>
 
                 </section>
 
+                <!-- BOTÃO CADASTRAR -->
                 <div class="w3-padding">
-                    <button class="w3-button w3-indigo w3-round w3-hover-orange" (click)="cadastrar()">Cadastrar</button>
+                    <button class="w3-button w3-indigo w3-round w3-hover-orange" (click)="cadastrar()" [disabled]="formCadastro.invalid">Cadastrar</button>
                 </div>
             </div>
         </div>

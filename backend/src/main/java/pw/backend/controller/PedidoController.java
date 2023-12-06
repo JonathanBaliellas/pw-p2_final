@@ -29,6 +29,13 @@ public class PedidoController {
         String msg = "Pedido inserido com sucesso";
         return ResponseEntity.ok(msg);
     }
+    @PostMapping("/api/pedido2")
+    public ResponseEntity<Integer> inserir2(@RequestBody Pedido pedido){
+        // String pedidoInserido =  repository.save(pedido).toString();
+        Pedido pedidoInserido = repository.save(pedido);
+        // String msg = "Pedido inserido com sucesso";
+        return ResponseEntity.ok(pedidoInserido.getId());
+    }
     @PutMapping("/api/pedido")
     public ResponseEntity<String> atualizar(@RequestBody Pedido pedido){
         repository.save(pedido);

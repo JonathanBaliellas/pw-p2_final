@@ -3,13 +3,14 @@ import { Cliente } from '../cliente/cliente.model';
 import { ClienteService } from '../services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotificacaoService } from '../services/notificacao.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent { //implements OnInit
   msg: string = "";
   cliente: Cliente = new Cliente();
   clienteRecuperacao: Cliente = new Cliente();
@@ -17,11 +18,50 @@ export class LoginComponent {
   senha: string = "";
   confirmarSenha: string = "";
   senhasDiferentes: boolean = false;
+  formCadastro = this.formBuilder.group({
+    nome: ["", [
+      Validators.minLength(4),
+      Validators.required
+    ]],
+    email: ["", [
+      Validators.email,
+      Validators.required
+    ]],
+    cpf: ["", [
+      Validators.maxLength(11),
+      Validators.minLength(11),
+      Validators.required
+    ]],
+    senha: ["", [
+      Validators.minLength(6),
+      Validators.required
+    ]],
+    logradouro: ["", [
+      Validators.required
+    ]],
+    bairro: ["", [
+      Validators.required
+    ]],
+    cidade: ["", [
+      Validators.required
+    ]],
+    uf: ["", [
+      Validators.maxLength(2),
+      Validators.minLength(2),
+      Validators.required
+    ]],
+    cep: ["", [
+      Validators.maxLength(8),
+      Validators.minLength(8),
+      Validators.required
+    ]]
+  });
 
   constructor(
     private clienteService: ClienteService,
     private routes: ActivatedRoute,
-    private notificacaoService: NotificacaoService
+    private notificacaoService: NotificacaoService,
+    private formBuilder: FormBuilder
   ){}
 
   ngOnInit(){
@@ -33,7 +73,15 @@ export class LoginComponent {
   }
     
   cadastrar(): void{
-    if (this.clienteNovo.senha.length > 0) {
+    if (!this.formCadastro.controls['nome'].invalid &&
+        !this.formCadastro.controls['bairro'].invalid &&
+        !this.formCadastro.controls['cep'].invalid &&
+        !this.formCadastro.controls['cidade'].invalid &&
+        !this.formCadastro.controls['cpf'].invalid &&
+        !this.formCadastro.controls['email'].invalid &&
+        !this.formCadastro.controls['logradouro'].invalid &&
+        !this.formCadastro.controls['senha'].invalid &&
+        !this.formCadastro.controls['uf'].invalid) {
       if (!this.senhasDiferentes) {
         try {
           this.clienteService.inserir(this.clienteNovo);
@@ -51,7 +99,7 @@ export class LoginComponent {
         return;
       }
     } else {
-      this.notificacaoService.notificar("A senha não pode ser vazia");
+      this.notificacaoService.notificar("Todos os campos precisam ser preenchidos corretamente");
       return;
     }
   }

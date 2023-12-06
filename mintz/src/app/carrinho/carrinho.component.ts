@@ -59,6 +59,7 @@ export class CarrinhoComponent {
       
       //Envia o pedido
       this.pedidoService.inserir(pedido);
+      // this.pedidoService.inserir(pedido, this.itensCarrinho);
 
       //Finaliza a compra
       alert('Obrigado pela compra, ' + this.cliente.nome + '!');

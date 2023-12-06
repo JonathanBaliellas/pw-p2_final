@@ -9,11 +9,12 @@ import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BarraPesquisaComponent } from './barra-pesquisa/barra-pesquisa.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteComponent } from './cliente/cliente.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     FooterComponent,
     NaoEncontradaComponent,
     BarraPesquisaComponent,
-    LoginComponent,
+    // LoginComponent,
     ClienteComponent,
     PedidosComponent
   ],
@@ -32,7 +33,9 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     BrowserAnimationsModule,
     MatSnackBarModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]
