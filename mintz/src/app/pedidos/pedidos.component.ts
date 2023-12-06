@@ -49,10 +49,12 @@ export class PedidosComponent {
     //Limpa as variáveis
     this.listaPedidoProdutos = [];
     this.listaProdutos = [];
-    let children = this.tbody?.children.length;
-    if (children == null) children = 0;
-    for (let i = 0; i < children; i++){
-      this.tbody?.removeChild(this.tbody.children[i]);
+
+    //Limpa a tabela
+    if (this.tbody) {
+      while (this.tbody.firstChild) {
+        this.tbody.removeChild(this.tbody.firstChild);
+      }
     }
 
     //Consulta a lista de produtos do pedido
@@ -74,14 +76,11 @@ export class PedidosComponent {
     this.listaPedidoProdutos.forEach(element => {
       try {
         //Recupera informações do produto
-        // let produto: Produtos = new Produtos;
         this.produtoService.consultar(element.produto_id).subscribe(
           (resposta: Produtos) => {
-            // produto = resposta;
             this.adicionarProduto(resposta, element);
-            
           }
-          );
+        );
           
           
       } catch (error) {
@@ -123,7 +122,7 @@ export class PedidosComponent {
           break;
 
         case 3:
-          td.innerHTML = pedidoProduto.preco.toString();
+          td.innerHTML = "R$ " + pedidoProduto.preco.toString();
       }
     }
     this.tbody?.append(tr);
